@@ -1,22 +1,24 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    NavMeshAgent agent;
+    public NavMeshPath path;
+    public Spawner spawner;
+
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
+        bool pathset = agent.SetPath(path);
     }
 
-    float count = 0;
-    Vector3 dir = Vector3.forward;
     void Update()
     {
-        count += Time.deltaTime;
-        if (count > 1)
+        if (agent.remainingDistance < 0.5 && path != null)
         {
-            dir *= -1;
-            count = 0;
+            agent.SetPath(spawner.EndPoint(path));
         }
-        transform.position += dir * Time.deltaTime;
     }
 }
