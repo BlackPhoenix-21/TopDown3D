@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     private static List<NavMeshPath> endPath = new();
     private static List<NavMeshPath> paths = new();
 
-    float timerSpawner = 0f;
+    float timerSpawner = 15f;
     int waves = 5;
     int waveSizes = 1;
     public GameObject enemyPrefab;
@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         timerSpawner -= Time.deltaTime;
-        if (timerSpawner > 0f)
+        if (timerSpawner < 0f)
         {
             StartCoroutine(Spawning());
             timerSpawner = 15f;
